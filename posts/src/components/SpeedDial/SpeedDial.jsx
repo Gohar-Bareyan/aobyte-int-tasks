@@ -6,8 +6,8 @@ class SpeedDialComponent extends React.Component {
     const { actions, position } = this.props;
     const speedDialPosition =
       position === "left"
-        ? { position: "absolute", bottom: 95, left: 205 }
-        : { position: "absolute", bottom: 95, right: 205 };
+        ? { marginRight: "435px", marginTop: "-190px" }
+        : { marginLeft: "435px", marginTop: "-190px" };
 
     return (
       <Box>

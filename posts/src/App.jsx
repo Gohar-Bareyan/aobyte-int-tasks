@@ -1,12 +1,12 @@
 import React from "react";
 
-import './index.scss';
+import "./index.scss";
 
-import ColumnLayoutContainer from "./containers/ColumnLayout";
+import MainContainer from "./containers/Main";
 
 class App extends React.Component {
   render() {
-    return <ColumnLayoutContainer />;
+    return <MainContainer />;
   }
 }
 
