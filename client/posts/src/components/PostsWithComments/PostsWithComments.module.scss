@@ -1,0 +1,58 @@
+@import "../../styles/colors.scss";
+
+.posts_with_comments_container {
+  width: 75%;
+  margin: auto;
+  overflow: auto;
+
+  h3 {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+  }
+
+  .search_input {
+    padding: 5px;
+    width: 200px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid $vivid_tangelo;
+    background-color: $liquid_nitrogen;
+  }
+
+  .accordion {
+    background-color: $almond_roca;
+    border-bottom: 1px solid $vivid_tangelo;
+
+    .expand_icon {
+      color: $vivid_tangelo;
+    }
+
+    .comments_container {
+      border: 1px solid $white;
+      background-color: $super_silver;
+    }
+
+    .comment_body {
+      padding: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 5px;
+      border-radius: 4px;
+      background-color: $white;
+      border-bottom: 1px solid $vivid_tangelo;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment_body:hover {
+      background-color: $lynx_white;
+    }
+  }
+
+  .pagination_container {
+    display: flex;
+    align-items: end;
+    margin-top: 20px;
+  }
+}
