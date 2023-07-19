@@ -12,3 +12,5 @@ export const RATE_NUMBERS = {
     TWO: 2,
     ONE: 1
 }
+
+export const PAGES_COUNT = 5

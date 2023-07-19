@@ -16,6 +16,16 @@ class ColumnLayoutContainer extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.posts !== prevProps.posts) {
+      const postsSortedByRating = [...this.props.posts].sort(
+        (a, b) => b.averageRate - a.averageRate
+      );
+
+      this.setState({ postsSortedByRating });
+    }
+  };
+
   handleAddSinglePost = (column) => {
     const { postsSortedByRating } = this.state;
 
@@ -25,7 +35,6 @@ class ColumnLayoutContainer extends React.Component {
 
     this.setState((prevState) => ({
       [column]: [...prevState[column], postsSortedByRating.shift()],
-      postsSortedByRating: postsSortedByRating,
     }));
   };
 
@@ -96,18 +105,6 @@ class ColumnLayoutContainer extends React.Component {
     this.handleSortPosts("rightColumnPosts");
   };
 
-  componentDidUpdate(prevProps) {
-    const { updatedPostsData } = this.props;
-
-    if (updatedPostsData !== prevProps.updatedPostsData) {
-      const postsSortedByRating = [...updatedPostsData].sort(
-        (a, b) => b.averageRate - a.averageRate
-      );
-
-      this.setState({ postsSortedByRating });
-    }
-  }
-
   render() {
     const { leftColumnPosts, rightColumnPosts } = this.state;
 
@@ -135,7 +132,6 @@ class ColumnLayoutContainer extends React.Component {
 
     return (
       <ColumnLayout
-        getIconColor={this.props.getIconColor}
         leftColumnPosts={leftColumnPosts}
         leftPartActions={leftPartActions}
         rightPartActions={rightPartActions}
