@@ -3,10 +3,15 @@ import React from "react";
 import "./index.scss";
 
 import MainContainer from "./containers/Main";
+import DataProvider from "./contexts/DataProvider";
 
 class App extends React.Component {
   render() {
-    return <MainContainer />;
+    return (
+      <DataProvider>
+        <MainContainer />
+      </DataProvider>
+    );
   }
 }
 

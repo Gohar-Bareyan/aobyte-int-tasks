@@ -7,12 +7,13 @@ import SpeedDialComponent from "../SpeedDial";
 import { ReactComponent as ColumnImage } from "../../images/frame.svg";
 import { ReactComponent as DeleteIcon } from "../../images/delete_icon.svg";
 
+import { getIconColor } from "../../helpers/functions";
 import styles from "./ColumnLayout.module.scss";
 
 class ColumnLayout extends React.Component {
   renderPosts(posts, handleDelete) {
     return posts.map((post) => {
-      const color = this.props.getIconColor(post.averageRate);
+      const color = getIconColor(post.averageRate);
       return (
         <div key={post.id} className={styles.posts_container}>
           <div className={styles.delete_icon_container}>

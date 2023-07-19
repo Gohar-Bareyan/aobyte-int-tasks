@@ -6,7 +6,7 @@ Start the XAMPP control panel and ensure that the Apache and MySQL services are 
 
 Before running the application, create a new database with the following details:
 
-Database Name: posts
+Database Name: `posts`
 
 ## Running Migrations
 
