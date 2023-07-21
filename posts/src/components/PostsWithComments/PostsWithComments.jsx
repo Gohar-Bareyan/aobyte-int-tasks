@@ -11,25 +11,31 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// import { ReactComponent as SendIcon } from "../../images/send_icon.svg";
+import { ReactComponent as TrashBoxIcon } from "../../images/trash_box_icon.svg";
+import { getIconColor } from "../../helpers/functions";
+
 import styles from "./PostsWithComments.module.scss";
 
 class PostsWithComments extends React.Component {
-
   render() {
     const {
+      posts,
+      comment,
       expanded,
-      pagesCount,
+      PAGES_COUNT,
       searchQuery,
       currentPage,
-      getIconColor,
       filteredPosts,
-      updatedPostsData,
       handlePageChange,
+      deletePostComment,
+      handleEnterKeyPress,
+      handleCommentChange,
       handleAccordionChange,
-      handleSearchQueryChange
+      handleSearchQueryChange,
     } = this.props;
 
-    const posts = filteredPosts();
+    const allPosts = filteredPosts();
 
     return (
       <div className={styles.posts_with_comments_container}>
@@ -41,8 +47,8 @@ class PostsWithComments extends React.Component {
           placeholder="Search..."
           className={styles.search_input}
         />
-        {posts.length > 0 ? (
-          posts.map((post) => (
+        {allPosts.length > 0 ? (
+          allPosts.map((post) => (
             <Accordion
               key={post.id}
               expanded={expanded === post.id}
@@ -71,15 +77,36 @@ class PostsWithComments extends React.Component {
                   {post.body}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <div className={styles.comments_container}>
-                  {post.comments.map((comment) => (
-                    <Typography
-                      key={comment.id}
-                      className={styles.comment_body}
-                    >
-                      {comment.body}
-                    </Typography>
+              <AccordionDetails className={styles.accordion_details}>
+                <textarea
+                  placeholder="Add a comment"
+                  className={styles.add_comment_textarea}
+                  value={comment}
+                  onChange={handleCommentChange}
+                  onKeyDown={(event) => handleEnterKeyPress(event, post.id)}
+                />
+                <div>
+                  {post.posts_comments.map((comment) => (
+                    <div className={styles.comments_container} key={comment.id}>
+                      <div className={styles.comment_body}>
+                        <div className={styles.comment}>
+                          <p> {comment.body} </p>
+                          <TrashBoxIcon
+                            className={styles.trash_box_icon}
+                            onClick={() =>
+                              deletePostComment(comment.id)
+                            }
+                          />
+                        </div>
+                        <div>
+                          <textarea
+                            placeholder="Reply"
+                            className={styles.reply_textarea}
+                          />
+                          {/* <SendIcon className={styles.send_icon} /> */}
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </AccordionDetails>
@@ -90,7 +117,7 @@ class PostsWithComments extends React.Component {
         )}
         <Stack spacing={2} className={styles.pagination_container}>
           <Pagination
-            count={Math.ceil(updatedPostsData.length / pagesCount)}
+            count={Math.ceil(posts.length / PAGES_COUNT)}
             color="primary"
             page={currentPage}
             onChange={handlePageChange}
