@@ -1,0 +1,77 @@
+@import "../../styles/colors.scss";
+
+.column_container {
+  width: 75%;
+  height: 650px;
+  display: flex;
+  margin: auto;
+  margin-top: 40px;
+  background-color: $almond_roca;
+  margin-bottom: 20px;
+
+  .left_column,
+  .right_column {
+    width: 50%;
+
+    .posts_content_container {
+      height: 100%;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $vivid_tangelo;
+        border-radius: 100px;
+      }
+
+      .column_image_display {
+        display: none;
+      }
+
+      .column_image {
+        display: flex;
+        margin: auto;
+        width: 400px;
+        margin-top: 50px;
+      }
+
+      .posts_container {
+        display: flex;
+        align-items: center;
+        margin: auto;
+        width: 73%;
+        border-bottom: 1px solid $vivid_tangelo;
+
+        .delete_icon_container {
+          cursor: pointer;
+
+          .delete_icon {
+            width: 25px;
+            margin-right: 10px;
+            fill: $venetian_red;
+          }
+        }
+
+        p {
+          font-size: 15px;
+          text-align: justify;
+        }
+
+        .star_icon {
+          margin-left: 20px;
+          font-size: 20px;
+        }
+
+        .rating_number {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .left_column {
+    border-right: 2px solid $white;
+  }
+}
