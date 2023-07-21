@@ -4,8 +4,10 @@ const { PostCommentsController } = require("./Controllers/PostCommentsController
 
 const router = express.Router();
 
+// Post routes
 router.get("/get-posts", PostsController.getPosts);
 
+// Post Comments routes
 router.post("/add-post-comment", PostCommentsController.addPostComment);
 router.delete("/delete-post-comment/:commentId", PostCommentsController.deletePostComment)
 
