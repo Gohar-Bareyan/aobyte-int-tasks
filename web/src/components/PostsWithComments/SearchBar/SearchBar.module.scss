@@ -1,0 +1,20 @@
+@import "../../../styles/colors.scss";
+
+.search_input {
+  padding: 5px;
+  width: 250px;
+  height: 25px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  border: 1px solid $vivid_tangelo;
+  background-color: $liquid_nitrogen;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+
+  &::placeholder {
+    color: $vivid_tangelo;
+    padding-left: 10px;
+  }
+}

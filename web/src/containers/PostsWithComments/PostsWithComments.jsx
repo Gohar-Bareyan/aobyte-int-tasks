@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 
 import PostsWithComments from "../../components/PostsWithComments";
-import { addPostComment, deletePostComment } from "../../api";
-import { DataContext } from "../../store/dataContext";
+
+import { addPostComment } from "../../api";
 import { PAGES_COUNT } from "../../constants";
+import { DataContext } from "../../store/dataContext";
 import { filteredPosts } from "../../helpers/functions";
 
 const PostsWithCommentsContainer = (props) => {
@@ -15,7 +16,9 @@ const PostsWithCommentsContainer = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [replyCommentId, setReplyCommentId] = useState(null);
   const [isReplyClicked, setIsReplyClicked] = useState(false);
+  const [isDescendingOrder, setIsDescendingOrder] = useState(true);
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -63,26 +66,20 @@ const PostsWithCommentsContainer = (props) => {
     }
   };
 
-  const handleDeletePostComment = async (commenId, postId) => {
-    try {
-      await deletePostComment(commenId);
+  const handleSortComments = (post) => {
+    post.postsComments.sort((a, b) => {
+      if (isDescendingOrder) {
+        return a.rate - b.rate;
+      }
+      return b.rate - a.rate;
+    });
 
-      const modifiedPosts = posts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            postsComments: post.postsComments.filter(
-              (postComment) => postComment.id !== commenId
-            ),
-          };
-        }
+    setIsDescendingOrder((prevIsDescendingOrder) => !prevIsDescendingOrder);
+  };
 
-        return post;
-      });
-      dispatch({ type: "SET_POSTS", payload: modifiedPosts });
-    } catch (error) {
-      console.log("Error deleting comment", error);
-    }
+  const handleReplyButtonClick = (postId) => {
+    setIsReplyClicked(true);
+    setReplyCommentId(postId);
   };
 
   const allPosts = filteredPosts(currentPage, posts, searchQuery);
@@ -96,13 +93,14 @@ const PostsWithCommentsContainer = (props) => {
       PAGES_COUNT={PAGES_COUNT}
       currentPage={currentPage}
       searchQuery={searchQuery}
+      replyCommentId={replyCommentId}
       isReplyClicked={isReplyClicked}
       handlePageChange={handlePageChange}
       handleSendComment={handleSendComment}
-      setIsReplyClicked={setIsReplyClicked}
+      handleSortComments={handleSortComments}
       handleCommentChange={handleCommentChange}
       handleAccordionChange={handleAccordionChange}
-      handleDeletePostComment={handleDeletePostComment}
+      handleReplyButtonClick={handleReplyButtonClick}
       handleSearchQueryChange={handleSearchQueryChange}
     />
   );
